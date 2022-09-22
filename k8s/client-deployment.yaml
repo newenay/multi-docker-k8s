@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Object to be created
+  name: client-deployment
+spec:
+  # Numbers of pods
+  replicas: 1
+  # Similiar to service-node Selector
+  selector:
+    matchLabels:
+      component: web
+      
+  # Configuration of each template for every pod
+  template:
+    metadata:
+      # Label/Selector coupling (could have multiple)
+      labels: 
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: newenay/multi-client
+          ports:
+            - containerPort: 3000
