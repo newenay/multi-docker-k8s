@@ -13,8 +13,29 @@ spec:
       labels: 
         component: postgres
     spec:
+      # Allocate the storage
+      volumes: 
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
       containers:
         - name: postgres
           image: postgres
           ports:
             - containerPort: 5432
+          volumeMounts:
+            # Get the volume named, from above volumes
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              # folder (postgres-specific, likes to have a folder)
+              subPath: postgres
+
+          env:
+            # *** This is PGPASSWORD in the server-deployment, POSTGRES Requires different var name ***
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  # name of the secret object
+                  name: pgsecret
+                  # here is the secret
+                  key: SECRETPW

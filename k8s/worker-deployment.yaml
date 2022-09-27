@@ -16,3 +16,10 @@ spec:
       containers:
         - name: worker
           image: newenay/multi-worker
+
+          # Add Redis connection to each container
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_HOST
+              value: '6379'

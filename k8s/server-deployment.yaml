@@ -23,3 +23,27 @@ spec:
           image: newenay/multi-server
           ports:
             - containerPort: 5000
+
+          # Good example of how an array is set in this format
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: '6379'
+            - name: PGUSER
+              value: postgres
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+            - name: PGPORT
+              value: '5432'
+            - name: PGDATABASE
+              value: postgres
+            # this is an env var, not the secret
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  # name of the secret object
+                  name: pgsecret
+                  # here is the secret
+                  key: SECRETPW
+            
