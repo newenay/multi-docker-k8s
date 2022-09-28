@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Object to be created
-  name: service-deployment
+  name: server-deployment
 spec:
   # Numbers of pods
   replicas: 3
@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: server
-          image: newenay/multi-server
+          image: cygnetops/multi-server-pgfix-5-11
+          #image: newenay/multi-server
           ports:
             - containerPort: 5000
 
