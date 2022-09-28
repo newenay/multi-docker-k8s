@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: newenay/multi-client
+          image: newenay/multi-client:v6
           ports:
             - containerPort: 3000
 
